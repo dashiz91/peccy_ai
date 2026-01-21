@@ -1,6 +1,5 @@
 -- =============================================
 -- PECCY AI - Database Schema
--- Run this in Supabase SQL Editor
 -- =============================================
 
 -- =============================================
@@ -255,20 +254,6 @@ begin
   values (p_user_id, p_amount, 'purchase', p_description, p_stripe_payment_id);
 end;
 $$ language plpgsql security definer;
-
--- =============================================
--- STORAGE BUCKETS (run separately or via dashboard)
--- =============================================
-
--- Note: Create these buckets in Supabase Dashboard > Storage
--- 1. 'uploads' - For user-uploaded product images
--- 2. 'generated' - For AI-generated images
--- 3. 'style-references' - For style reference images
-
--- Storage policies will be set via Dashboard or:
--- insert into storage.buckets (id, name, public) values ('uploads', 'uploads', false);
--- insert into storage.buckets (id, name, public) values ('generated', 'generated', false);
--- insert into storage.buckets (id, name, public) values ('style-references', 'style-references', false);
 
 -- =============================================
 -- UPDATED_AT TRIGGER
