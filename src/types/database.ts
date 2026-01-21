@@ -48,7 +48,13 @@ export interface Database {
           target_audience: string | null
           brand_name: string | null
           status: 'pending' | 'analyzing' | 'generating' | 'completed' | 'failed'
-          framework: Json | null
+          framework_data: Json | null
+          selected_framework: Json | null
+          image_prompts: Json | null
+          color_mode: string | null
+          locked_colors: string[] | null
+          style_reference_path: string | null
+          global_note: string | null
           credits_used: number
           created_at: string
           updated_at: string
@@ -62,7 +68,13 @@ export interface Database {
           target_audience?: string | null
           brand_name?: string | null
           status?: 'pending' | 'analyzing' | 'generating' | 'completed' | 'failed'
-          framework?: Json | null
+          framework_data?: Json | null
+          selected_framework?: Json | null
+          image_prompts?: Json | null
+          color_mode?: string | null
+          locked_colors?: string[] | null
+          style_reference_path?: string | null
+          global_note?: string | null
           credits_used?: number
           created_at?: string
           updated_at?: string
@@ -76,7 +88,13 @@ export interface Database {
           target_audience?: string | null
           brand_name?: string | null
           status?: 'pending' | 'analyzing' | 'generating' | 'completed' | 'failed'
-          framework?: Json | null
+          framework_data?: Json | null
+          selected_framework?: Json | null
+          image_prompts?: Json | null
+          color_mode?: string | null
+          locked_colors?: string[] | null
+          style_reference_path?: string | null
+          global_note?: string | null
           credits_used?: number
           created_at?: string
           updated_at?: string

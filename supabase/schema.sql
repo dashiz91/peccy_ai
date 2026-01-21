@@ -74,10 +74,13 @@ create table public.generations (
   target_audience text,
   brand_name text,
   status generation_status default 'pending' not null,
-  framework jsonb, -- Stores the selected design framework
+  framework_data jsonb, -- All generated frameworks from analysis
+  selected_framework jsonb, -- The user's selected framework
+  image_prompts jsonb, -- Generated prompts for each image type
   color_mode text, -- 'ai_decides', 'suggest_primary', 'locked_palette'
   locked_colors text[], -- Hex colors if locked
   style_reference_path text, -- Path to style reference in storage
+  global_note text, -- User's custom instructions
   credits_used integer default 0 not null,
   created_at timestamptz default now() not null,
   updated_at timestamptz default now() not null
@@ -186,6 +189,7 @@ create index credit_transactions_user_id_idx on public.credit_transactions(user_
 -- =============================================
 
 -- Function to deduct credits atomically
+-- Overload 1: With generation_id
 create or replace function public.deduct_credits(
   p_user_id uuid,
   p_amount integer,
@@ -218,6 +222,18 @@ begin
   values (p_user_id, -p_amount, 'usage', p_description, p_generation_id);
 
   return true;
+end;
+$$ language plpgsql security definer;
+
+-- Overload 2: Without generation_id (for simple deductions)
+create or replace function public.deduct_credits(
+  user_id uuid,
+  amount integer,
+  description text default 'Image generation'
+)
+returns boolean as $$
+begin
+  return public.deduct_credits(user_id, amount, null::uuid, description);
 end;
 $$ language plpgsql security definer;
 
