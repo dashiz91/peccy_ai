@@ -100,13 +100,37 @@ NEXT_PUBLIC_APP_URL=http://localhost:3000
 | Regenerate | 1 |
 | Edit | 1 |
 
+## API Routes
+
+### Generation Flow
+```
+POST /api/generate/analyze    # Step 1: Analyze product, generate frameworks
+POST /api/generate/prompts    # Step 2: Generate detailed image prompts
+POST /api/generate/image      # Step 3: Generate single image
+```
+
+### Flow
+1. User uploads product images
+2. `POST /api/generate/analyze` → Returns 4 design frameworks
+3. User selects a framework
+4. `POST /api/generate/prompts` → Returns 5 detailed image prompts
+5. `POST /api/generate/image` (x5) → Generates each listing image
+
 ## Key Files
 
+### Supabase
 - `src/lib/supabase/client.ts` - Browser Supabase client
 - `src/lib/supabase/server.ts` - Server Supabase client
+- `src/lib/supabase/storage.ts` - Storage utilities
 - `src/middleware.ts` - Auth middleware (protects routes)
 - `src/types/database.ts` - TypeScript types for Supabase
 - `supabase/schema.sql` - Full database schema with RLS
+- `supabase/storage-policies.sql` - Storage bucket policies
+
+### Gemini AI
+- `src/lib/gemini/client.ts` - Gemini client initialization
+- `src/lib/gemini/prompts.ts` - AI Designer prompts
+- `src/lib/gemini/service.ts` - Framework analysis & image generation
 
 ## Development Notes
 

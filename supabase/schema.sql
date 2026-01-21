@@ -25,6 +25,7 @@ create table public.profiles (
   full_name text,
   avatar_url text,
   credits integer default 10 not null, -- Start with 10 free credits
+  stripe_customer_id text, -- Stripe customer ID for payments
   created_at timestamptz default now() not null,
   updated_at timestamptz default now() not null
 );
